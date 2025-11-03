@@ -32,7 +32,7 @@
             box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
             width: 100%;
             max-width: 500px;
-            height: 600px;
+            height: 700px;
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
@@ -158,12 +158,6 @@
             font-size: 32px;
             margin: 0;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.8);
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.9));
         }
 
         h2 {
@@ -171,8 +165,6 @@
             font-size: 20px;
             margin: 0;
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4), 0 0 8px rgba(255, 255, 255, 0.7);
-            filter: drop-shadow(1px 1px 1px rgba(255, 255, 255, 0.8));
         }
 
         h3 {
@@ -180,12 +172,6 @@
             font-size: 28px;
             margin: 0;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.8);
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.9));
         }
 
         p {
@@ -200,7 +186,7 @@
             background: linear-gradient(135deg, #fef2f2, #fce7e7);
             padding: 25px;
             border-radius: 15px;
-            margin: 20px 0;
+            margin: 20px 0 60px 0;
             width: 100%;
             max-width: 350px;
             border-left: 4px solid #dc2626;
@@ -289,7 +275,7 @@
 
         @media (max-width: 600px) {
             .card {
-                height: 500px;
+                height: 650px;
                 margin: 10px;
             }
             
@@ -317,7 +303,7 @@
    <div class="card"><!-- Corazones flotantes -->
     <div class="floating-hearts">
      <div class="heart" style="left: 10%; animation-delay: 0s;">
-      💕
+      💝
      </div>
      <div class="heart" style="left: 20%; animation-delay: 1s;">
       ❤️
@@ -326,10 +312,10 @@
       💖
      </div>
      <div class="heart" style="left: 40%; animation-delay: 3s;">
-      💝
+      💗
      </div>
      <div class="heart" style="left: 50%; animation-delay: 4s;">
-      💕
+      💝
      </div>
      <div class="heart" style="left: 60%; animation-delay: 5s;">
       ❤️
@@ -338,10 +324,10 @@
       💖
      </div>
      <div class="heart" style="left: 80%; animation-delay: 1.5s;">
-      💝
+      💗
      </div>
      <div class="heart" style="left: 90%; animation-delay: 2.5s;">
-      💕
+      💝
      </div>
     </div><!-- Página 1: Amor -->
     <div class="page active page-with-background" id="page-1">
@@ -381,7 +367,7 @@
       ♾️
      </div>
      <div class="title-box">
-      <h3>Para siempre</h3>
+      <h3>Para Siempre</h3>
      </div>
      <div class="romantic-message">
       <p id="mensaje3-display">Quiero caminar contigo por la vida, crear muchos recuerdos más juntos y amarte como siempre digo, por la eternidad.</p>
@@ -398,7 +384,7 @@
       <h3>Te Amo</h3>
      </div>
      <div class="romantic-message">
-      <p id="mensaje4-display">Te amo con todo lo que soy, y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en en mi mismo, porque vos me devolvés el sentido.</p>
+      <p id="mensaje4-display">Te amo con todo lo que soy, y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en mi mismo, porque vos me devolvés el sentido.</p>
      </div>
     </div><!-- Página 5: Aniversario -->
     <div class="page page-with-background" id="page-5">
@@ -412,9 +398,7 @@
       <h3>Hoy es 3, otro mes más juntos</h3>
      </div>
      <div class="romantic-message">
-      <p id="mensaje5-display">Hoy cumplimos otro mes, un amor que crece, sana y renace, cada día con vos es un regalo. Sigamos escribiendo juntos nuestra historia. --
- 
-De Gonzalo para Giny. --</p>
+      <p id="mensaje5-display">Hoy cumplimos otro mes, un amor que crece, sana y renace, cada día con vos es un regalo. Sigamos escribiendo juntos nuestra historia -- De Gonzalo para Giny. --</p>
      </div>
     </div><!-- Navegación -->
     <div class="navigation"><button class="nav-button" id="prev-btn" onclick="previousPage()" disabled>← Anterior</button> <button class="nav-button" id="next-btn" onclick="nextPage()">Siguiente →</button>
@@ -430,8 +414,8 @@ De Gonzalo para Giny. --</p>
             mensaje_pagina1: "Cada día a tu lado es un regalo que atesoro en mi corazón. Sos la razón por la que sonrío cada día, y sos la calma de mis días grises.",
             mensaje_pagina2: "Desde que estás, todo brilla distinto, tu voz me tranquiliza, tu risa me alegra, sos esa felicidad que no se busca, que simplemente llegó, y se queda, mi alegría lleva tu nombre.",
             mensaje_pagina3: "Quiero caminar contigo por la vida, crear muchos recuerdos más juntos y amarte como siempre digo, por la eternidad.",
-            mensaje_pagina4: "Te amo con todo lo que soy. y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en en mi mismo, porque vos me devolvés el sentido.",
-            mensaje_pagina5: "Hoy cumplimos otro mes, un amor que crece, sana y renace, cada día con vos es un regalo. Sigamos escribiendo juntos nuestra historia. De Gonzalo para Giny"
+            mensaje_pagina4: "Te amo con todo lo que soy. y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en mi mismo, porque vos me devolvés el sentido.",
+            mensaje_pagina5: "Hoy cumplimos otro mes, un amor que crece, se sana y renace, cada día con vos es un regalo. Feliz un nuevo aniversario más, mi vida. Sigamos escribiendo juntos nuestra historia."
         };
 
         function nextPage() {
@@ -474,7 +458,7 @@ De Gonzalo para Giny. --</p>
             nextBtn.disabled = currentPage === totalPages;
             
             if (currentPage === totalPages) {
-                nextBtn.textContent = '💕 y nadaa...';
+                nextBtn.textContent = '💝 y nadaa...';
             } else {
                 nextBtn.textContent = 'Siguiente →';
             }
