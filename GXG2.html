@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Giny</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+            width: 100%;
+            max-width: 500px;
+            height: 700px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(220, 38, 38, 0.4);
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .page.prev {
+            transform: translateX(-100%);
+        }
+
+        .page-with-background {
+            background-image: url('https://i.postimg.cc/Qxzb6jTF/GXG3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .page-with-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.20);
+            z-index: 1;
+        }
+
+        .page-with-background > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(220, 38, 38, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .romantic-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .title-box {
+            background: linear-gradient(135deg, #fef2f2, #fce7e7);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #dc2626;
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.1);
+        }
+
+        h1 {
+            color: #dc2626;
+            font-size: 32px;
+            margin: 0;
+            font-weight: 900;
+        }
+
+        h2 {
+            color: #ec4899;
+            font-size: 20px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: #dc2626;
+            font-size: 28px;
+            margin: 0;
+            font-weight: 900;
+        }
+
+        p {
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 30px 0;
+            max-width: 400px;
+        }
+
+        .romantic-message {
+            background: linear-gradient(135deg, #fef2f2, #fce7e7);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0 60px 0;
+            width: 100%;
+            max-width: 350px;
+            border-left: 4px solid #dc2626;
+            font-style: italic;
+            color: #7c2d12;
+            font-weight: bold;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-button {
+            background: #ec4899;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #db2777;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .nav-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626, #ec4899);
+            transition: width 0.5s ease;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(220, 38, 38, 0.3);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                height: 650px;
+                margin: 10px;
+            }
+            
+            .page {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .romantic-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="presentation-container">
+   <div class="card"><!-- Corazones flotantes -->
+    <div class="floating-hearts">
+     <div class="heart" style="left: 10%; animation-delay: 0s;">
+      💝
+     </div>
+     <div class="heart" style="left: 20%; animation-delay: 1s;">
+      ❤️
+     </div>
+     <div class="heart" style="left: 30%; animation-delay: 2s;">
+      💖
+     </div>
+     <div class="heart" style="left: 40%; animation-delay: 3s;">
+      💗
+     </div>
+     <div class="heart" style="left: 50%; animation-delay: 4s;">
+      💝
+     </div>
+     <div class="heart" style="left: 60%; animation-delay: 5s;">
+      ❤️
+     </div>
+     <div class="heart" style="left: 70%; animation-delay: 0.5s;">
+      💖
+     </div>
+     <div class="heart" style="left: 80%; animation-delay: 1.5s;">
+      💗
+     </div>
+     <div class="heart" style="left: 90%; animation-delay: 2.5s;">
+      💝
+     </div>
+    </div><!-- Página 1: Amor -->
+    <div class="page active page-with-background" id="page-1">
+     <div class="page-indicator">
+      1 / 5
+     </div>
+     <div class="romantic-icon">
+      💖
+     </div>
+     <div class="title-box">
+      <h1>Para vos, Giny</h1>
+      <h2>Con todo mi corazón</h2>
+     </div>
+     <div class="romantic-message">
+      <p id="mensaje1-display">Cada día a tu lado es un regalo que atesoro en mi corazón. Sos la razón por la que sonrío cada día, y sos la calma de mis días grises.</p>
+     </div>
+    </div><!-- Página 2: Pasión -->
+    <div class="page page-with-background" id="page-2">
+     <div class="page-indicator">
+      2 / 5
+     </div>
+     <div class="icon">
+      🔥
+     </div>
+     <div class="title-box">
+      <h3>Mi amor por vos</h3>
+     </div>
+     <div class="romantic-message">
+      <p id="mensaje2-display">Desde que estás, todo brilla distinto, tu voz me tranquiliza, tu risa me alegra, sos esa felicidad que no se busca, que simplemente llegó, y se queda, mi alegría lleva tu nombre.</p>
+     </div>
+    </div><!-- Página 3: Eternidad -->
+    <div class="page page-with-background" id="page-3">
+     <div class="page-indicator">
+      3 / 5
+     </div>
+     <div class="icon">
+     ✨
+     </div>
+     <div class="title-box">
+      <h3>Para Siempre</h3>
+     </div>
+     <div class="romantic-message">
+      <p id="mensaje3-display">Quiero caminar con vos por la vida, crear muchos recuerdos más juntos y amarte como siempre digo, por la eternidad.</p>
+     </div>
+    </div><!-- Página 4: Declaración -->
+    <div class="page page-with-background" id="page-4">
+     <div class="page-indicator">
+      4 / 5
+     </div>
+     <div class="icon">
+      💍
+     </div>
+     <div class="title-box">
+      <h3>Te Amo</h3>
+     </div>
+     <div class="romantic-message">
+      <p id="mensaje4-display">Te amo con todo lo que soy, y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en mi mismo, porque vos me devolvés el sentido.</p>
+     </div>
+    </div><!-- Página 5: Aniversario -->
+    <div class="page page-with-background" id="page-5">
+     <div class="page-indicator">
+      5 / 5
+     </div>
+     <div class="icon">
+      🌹
+     </div>
+     <div class="title-box">
+      <h3>Hoy es 3, otro mes más juntos</h3>
+     </div>
+     <div class="romantic-message">
+      <p id="mensaje5-display">Hoy cumplimos otro mes, un amor que crece, sana y renace, cada día con vos es un regalo. Sigamos escribiendo juntos nuestra historia -- De Gonzalo para Giny. --</p>
+     </div>
+    </div><!-- Navegación -->
+    <div class="navigation"><button class="nav-button" id="prev-btn" onclick="previousPage()" disabled>← Anterior</button> <button class="nav-button" id="next-btn" onclick="nextPage()">Siguiente →</button>
+    </div><!-- Barra de progreso -->
+    <div class="progress-bar" id="progress-bar" style="width: 20%"></div>
+   </div>
+  </div>
+  <script>
+        let currentPage = 1;
+        const totalPages = 5;
+
+        const defaultConfig = {
+            mensaje_pagina1: "Cada día a tu lado es un regalo que atesoro en mi corazón. Sos la razón por la que sonrío cada día, y sos la calma de mis días grises.",
+            mensaje_pagina2: "Desde que estás, todo brilla distinto, tu voz me tranquiliza, tu risa me alegra, sos esa felicidad que no se busca, que simplemente llegó, y se queda, mi alegría lleva tu nombre.",
+            mensaje_pagina3: "Quiero caminar con vos por la vida, crear muchos recuerdos más juntos y amarte como siempre digo, por la eternidad.",
+            mensaje_pagina4: "Te amo con todo lo que soy. y perdón, amor mío, por los momentos en que no estuve a la altura, nunca fue falta de amor, solo miedo, cansancio o torpeza, no sé amar a medias, a veces me pierdo entre emociones y siempre vuelvo en mi mismo, porque vos me devolvés el sentido.",
+            mensaje_pagina5: "Hoy cumplimos otro mes, un amor que crece, se sana y renace, cada día con vos es un regalo. Feliz un nuevo aniversario más, mi vida. Sigamos escribiendo juntos nuestra historia."
+        };
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                const currentPageEl = document.getElementById(`page-${currentPage}`);
+                const nextPageEl = document.getElementById(`page-${currentPage + 1}`);
+                
+                currentPageEl.classList.remove('active');
+                currentPageEl.classList.add('prev');
+                
+                currentPage++;
+                nextPageEl.classList.add('active');
+                
+                updateNavigation();
+                updateProgressBar();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                const currentPageEl = document.getElementById(`page-${currentPage}`);
+                const prevPageEl = document.getElementById(`page-${currentPage - 1}`);
+                
+                currentPageEl.classList.remove('active');
+                
+                currentPage--;
+                prevPageEl.classList.remove('prev');
+                prevPageEl.classList.add('active');
+                
+                updateNavigation();
+                updateProgressBar();
+            }
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            
+            if (currentPage === totalPages) {
+                nextBtn.textContent = '💝 y nadaa...';
+            } else {
+                nextBtn.textContent = 'Siguiente →';
+            }
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progress = (currentPage / totalPages) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        async function onConfigChange(config) {
+            const mensaje1 = document.getElementById('mensaje1-display');
+            const mensaje2 = document.getElementById('mensaje2-display');
+            const mensaje3 = document.getElementById('mensaje3-display');
+            const mensaje4 = document.getElementById('mensaje4-display');
+            const mensaje5 = document.getElementById('mensaje5-display');
+
+            if (mensaje1) mensaje1.textContent = config.mensaje_pagina1 || defaultConfig.mensaje_pagina1;
+            if (mensaje2) mensaje2.textContent = config.mensaje_pagina2 || defaultConfig.mensaje_pagina2;
+            if (mensaje3) mensaje3.textContent = config.mensaje_pagina3 || defaultConfig.mensaje_pagina3;
+            if (mensaje4) mensaje4.textContent = config.mensaje_pagina4 || defaultConfig.mensaje_pagina4;
+            if (mensaje5) mensaje5.textContent = config.mensaje_pagina5 || defaultConfig.mensaje_pagina5;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["mensaje_pagina1", config.mensaje_pagina1 || defaultConfig.mensaje_pagina1],
+                ["mensaje_pagina2", config.mensaje_pagina2 || defaultConfig.mensaje_pagina2],
+                ["mensaje_pagina3", config.mensaje_pagina3 || defaultConfig.mensaje_pagina3],
+                ["mensaje_pagina4", config.mensaje_pagina4 || defaultConfig.mensaje_pagina4],
+                ["mensaje_pagina5", config.mensaje_pagina5 || defaultConfig.mensaje_pagina5]
+            ]);
+        }
+
+        // Inicializar el SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousPage();
+            }
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9989a16a421e9b26',t:'MTc2MjE0OTQwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
